@@ -28,6 +28,16 @@ class PC{
 		}
 };
 
+string toBinary(int n){
+    string r;
+    while (n != 0){
+        r += ( n % 2 == 0 ? "0" : "1" );
+        n /= 2;
+    }
+    return r;
+}
+
+
 vector<PC>pcs;
 
 int main(int argc, char** argv) {
@@ -78,6 +88,26 @@ int main(int argc, char** argv) {
 					} else {
 						string ping = comando.substr(5);
 						cout << ping << endl;
+						
+						bool match = false;
+						for(int i=0; i < pcs.size();i++){
+							if(pcs[i].getIP() == ping)
+								match = true;
+						}
+						
+						if(match){
+							
+							
+						} else {
+							cout << endl << "Pinging to " << ping << " with 32 bytes of data:" << endl << endl;
+							for(int i=0; i < 4; i++){
+								cout << "Request timed out" << endl;
+							}
+							
+							cout << endl << "Ping statistics for " << ping << ":" << endl;
+							cout << "     Packets: Sent =  4, Received = 0, Lost = 4 (100% Lost)" << endl; 
+						}
+						
 					}
 				}
 				
