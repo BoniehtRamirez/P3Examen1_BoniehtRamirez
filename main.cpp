@@ -28,13 +28,54 @@ class PC{
 		}
 };
 
-string toBinary(int n){
-    string r;
-    while (n != 0){
-        r += ( n % 2 == 0 ? "0" : "1" );
-        n /= 2;
+string toBinary(int numero){
+    string binario = "";
+    if (numero > 0) {
+        while (numero > 0) {
+            if (numero%2 == 0) {
+                binario = "0"+binario;
+            } else {
+                binario = "1"+binario;
+            }
+            numero = (int) numero/2;
+        }
+    } else if (numero == 0) {
+        binario = "0";
     }
-    return r;
+    
+    return binario;
+}
+
+bool match(string ip, string destinataryIP){
+	string total_ip_1 = "";
+	string temp = "";
+	for(int i=0; i < ip.size(); i++){
+		if(ip[i] != '.'){
+			temp+=ip[i];
+		} else {
+			total_ip_1 += toBinary(stoi(temp));
+			temp = "";
+		}
+	}
+	total_ip_1 += toBinary(stoi(temp));
+	
+	string total_ip_2 = "";
+	temp = "";
+	for(int i=0; i < destinataryIP.size(); i++){
+		if(ip[i] != '.'){
+			temp+=destinataryIP[i];
+		} else {
+			total_ip_2 += toBinary(stoi(temp));
+			temp = "";
+		}
+	}
+	total_ip_2 += toBinary(stoi(temp));
+	
+	if(total_ip_1.substr(0,26) == total_ip_2.substr(0,26)){
+		return true;
+	} else {
+		return false;
+	}
 }
 
 
@@ -86,25 +127,27 @@ int main(int argc, char** argv) {
 					} else if(comando == "exit"){
 						return 0;
 					} else {
-						string ping = comando.substr(5);
-						cout << ping << endl;
+						string ip = comando.substr(5);
+						cout << ip << endl;
 						
-						bool match = false;
+						bool matched = false;
 						for(int i=0; i < pcs.size();i++){
-							if(pcs[i].getIP() == ping)
-								match = true;
+							if(pcs[i].getIP() == ip)
+								matched = true;
 						}
 						
-						if(match){
-							
+						if(matched){
+							if(match(pcs[sel].getIP(),ip)){
+								
+							}
 							
 						} else {
-							cout << endl << "Pinging to " << ping << " with 32 bytes of data:" << endl << endl;
+							cout << endl << "Pinging to " << ip << " with 32 bytes of data:" << endl << endl;
 							for(int i=0; i < 4; i++){
 								cout << "Request timed out" << endl;
 							}
 							
-							cout << endl << "Ping statistics for " << ping << ":" << endl;
+							cout << endl << "Ping statistics for " << ip << ":" << endl;
 							cout << "     Packets: Sent =  4, Received = 0, Lost = 4 (100% Lost)" << endl; 
 						}
 						
