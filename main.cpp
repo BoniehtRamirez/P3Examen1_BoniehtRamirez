@@ -101,7 +101,7 @@ int main(int argc, char** argv) {
 				cin >> hostname;
 				
 				pcs.push_back(PC(IP,netmask,hostname));
-				cout << "PC agregada!!" << endl;
+				cout << endl << "PC agregada!!" << endl;
 				break;
 			}
 			case 2:{
@@ -138,7 +138,21 @@ int main(int argc, char** argv) {
 						
 						if(matched){
 							if(match(pcs[sel].getIP(),ip)){
+								cout << endl << "Pinging to " << ip << " with 32 bytes of data:" << endl << endl;
+								for(int i=0; i < 4; i++){
+									cout << "Reply from " << ip << ": bytes=32 time=37s TTL=46" << endl;
+								}
 								
+								cout << endl << "Ping statistics for " << ip << ":" << endl;
+								cout << "     Packets: Sent =  4, Received = 4, Lost = 0 (0% Lost)" << endl; 
+							} else {
+								cout << endl << "Pinging to " << ip << " with 32 bytes of data:" << endl << endl;
+								for(int i=0; i < 4; i++){
+									cout << "Reply from " << ip << ": Destination host unreachable" << endl;
+								}
+								
+								cout << endl << "Ping statistics for " << ip << ":" << endl;
+								cout << "     Packets: Sent =  4, Received = 4, Lost = 0 (0% Lost)" << endl; 
 							}
 							
 						} else {
